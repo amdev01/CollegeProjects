@@ -11,39 +11,54 @@ namespace StringCalculator
         static string sEquation;
         static string sOperators = "*/%+-";
         static string sDigits = "0123456789";
-        static int[] iNumsInEquation = new int[8];
-        static char?[] cOpsInEquation = new char?[8];
-        static int[] properiNumsInEquation = new int[8];
-        static char[] propercOpsInEquation = new char[8];
-        static bool fail = false;
-        static int addPos, subPos, multiPos, divPos, modPos;
+        static List<int> iNumsInEq = new List<int>();
+        static List<char> cOpsInEq = new List<char>();
+        static int maxLen = 10, multiPos, divPos, modPos;
 
         static void Main(string[] args)
         {
             Console.WriteLine("Enter the equation you want to work out down below with the maximum of 8 characters in the equation (enter 'help' to display help menu)");
             sEquation = Console.ReadLine();
-            while (sEquation.Length > 8)
+            while (sEquation.Length > maxLen || sEquation.Length == 0)
             {
-                Console.WriteLine("Give equation is {0} characters long, the maximum is 8, please re enter the equation", Convert.ToString(sEquation.Length));
+                Console.WriteLine("Give equation is {0} characters long, the maximum is {1}, please re enter the equation", (sEquation.Length).ToString(), maxLen.ToString());
                 sEquation = Console.ReadLine();
             }
 
-            getEquation();
-
-            
-            if (fail == false)
+            if (getEquation())
             {
-                int answer = twoNumbers(iNumsInEquation[0], iNumsInEquation[1], cOpsInEquation[0]);
-                int opc = 1;
-                for (int i = 2; iNumsInEquation[i] > 0; i++)
+                if ((multiPos = oofIndex('*')) > -1)
                 {
-                    answer = twoNumbers(answer, iNumsInEquation[i], cOpsInEquation[opc]);
-                    opc++;
+                    fixList(multiPos, '*');
                 }
-                Console.Clear();
-                Console.WriteLine("{0}={1}", sEquation, answer.ToString());
+                if ((divPos = oofIndex('/')) > -1)
+                {
+                    fixList(divPos, '/');
+                }
+                if ((modPos = oofIndex('%')) > -1)
+                {
+                    fixList(modPos, '%');
+                }
+
+                if ((oofIndex('+') == -1 && oofIndex('-') == -1))
+                {
+                    Console.Clear();
+                    Console.WriteLine("{0}={1}", sEquation, iNumsInEq[0].ToString());
+                }
+                else
+                {
+                    int answer = AddSub(iNumsInEq[0], iNumsInEq[1], cOpsInEq[0]);
+                    int opc = 1;
+                    for (int i = 2; i < iNumsInEq.Count; i++)
+                    {
+                        answer = AddSub(answer, iNumsInEq[i], cOpsInEq[opc]);
+                        opc++;
+                    }
+                    Console.Clear();
+                    Console.WriteLine("{0}={1}", sEquation, answer.ToString());
+                }
             }
-            
+
             Console.Read();
         }
 
@@ -63,7 +78,8 @@ namespace StringCalculator
             Console.WriteLine("* functions can be combined *");
             Console.WriteLine("*****************************");
         }
-        static int twoNumbers(int num1, int num2, char? coperator)
+
+        static int AddSub(int num1, int num2, char coperator)
         {
             int tmpans = 0;
             switch (coperator)
@@ -74,26 +90,15 @@ namespace StringCalculator
                 case '-':
                     tmpans = num1 - num2;
                     break;
-                case '*':
-                    tmpans = num1 * num2;
-                    break;
-                case '/':
-                    tmpans = num1 / num2;
-                    break;
-                case '%':
-                    tmpans = num1 % num2;
-                    break;
                 default:
                     break;
             }
             return tmpans;
         }
 
-        static void getEquation()
+        static Boolean getEquation()
         {
             string stmp = "";
-            int dcounter = 0;
-            int ocounter = 0;
 
             char[] cEquation = sEquation.ToCharArray();
             for (int i = 0; i < sEquation.Length; i++)
@@ -103,9 +108,8 @@ namespace StringCalculator
                     if (i == sEquation.Length - 1)
                     {
                         stmp += (cEquation[i]).ToString();
-                        iNumsInEquation[dcounter] = Convert.ToInt16(stmp);
+                        iNumsInEq.Add(Convert.ToInt16(stmp));
                         stmp = "";
-                        dcounter++;
                     }
                     else
                     {
@@ -114,44 +118,54 @@ namespace StringCalculator
                 }
                 else if (sOperators.Contains(cEquation[i]))
                 {
-                    cOpsInEquation[ocounter] = cEquation[i];
-                    ocounter++;
-                    iNumsInEquation[dcounter] = Convert.ToInt16(stmp);
-                    dcounter++;
+                    cOpsInEq.Add(cEquation[i]);
+                    iNumsInEq.Add(Convert.ToInt16(stmp));
                     stmp = "";
                 }
                 else
                 {
                     Console.WriteLine("{0} is not a digit or an operator", Convert.ToString(cEquation[i]));
-                    fail = true;
-                    break;
+                    return false;
                 }
             }
+            return true;
         }
-        static void bodmansIt()
-        {
-            for (int i=0; cOpsInEquation[i] != null; i++)
-            {
-                switch(cOpsInEquation[i])
-                {
-                    case '/':
-                        multiPos=i;
-                        break;
-                    case '*':
-                        divPos=i;
-                        break;
-                    case '%':
-                        modPos=i;
-                        break;
-                    case '+':
-                        addPos=i;
-                        break;
-                    case '-':
-                        subPos = i;
-                        break;
-                }
-            }
 
+        static int oofIndex(char op)
+        {
+            int index = -1;
+            for (int i = 0; i < cOpsInEq.Count; i++)
+            {
+                if (op == cOpsInEq[i])
+                {
+                    index = i;
+                }
+
+            }
+            return index;
+        }
+
+        static void fixList(int opPos, char op)
+        {
+            int tmphigh = 0;
+            switch (op)
+            {
+                case '*':
+                    tmphigh = iNumsInEq[opPos] * iNumsInEq[opPos + 1];
+                    break;
+                case '/':
+                    tmphigh = iNumsInEq[opPos] / iNumsInEq[opPos + 1];
+                    break;
+                case '%':
+                    tmphigh = iNumsInEq[opPos] % iNumsInEq[opPos + 1];
+                    break;
+                default:
+                    break;
+
+            }
+            iNumsInEq[opPos] = tmphigh;
+            iNumsInEq.RemoveAt(opPos + 1);
+            cOpsInEq.RemoveAt(opPos);
         }
     }
 }
