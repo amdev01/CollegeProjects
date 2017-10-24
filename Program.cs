@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,13 +11,13 @@ namespace StringCalculator
         static string sEquation;
         static string sOperators = "*/%+-";
         static string sDigits = "0123456789";
-        static List<int> iNumsInEq = new List<int>();
+        static List<double> iNumsInEq = new List<double>();
         static List<char> cOpsInEq = new List<char>();
-        static int maxLen = 10, multiPos, divPos, modPos;
+        static int maxLen = 10;
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter the equation you want to work out down below with the maximum of 8 characters in the equation (enter 'help' to display help menu)");
+            Console.WriteLine("Enter the equation you want to work out down below with the maximum of {0} characters in the equation (enter 'help' to display help menu)", maxLen.ToString());
             sEquation = Console.ReadLine();
             while (sEquation.Length > maxLen || sEquation.Length == 0)
             {
@@ -27,17 +27,10 @@ namespace StringCalculator
 
             if (getEquation())
             {
-                if ((multiPos = oofIndex('*')) > -1)
+                var copyOpsInEq = cOpsInEq.ToList();
+                foreach (char op in copyOpsInEq)
                 {
-                    fixList(multiPos, '*');
-                }
-                if ((divPos = oofIndex('/')) > -1)
-                {
-                    fixList(divPos, '/');
-                }
-                if ((modPos = oofIndex('%')) > -1)
-                {
-                    fixList(modPos, '%');
+                    multiIndex(op);
                 }
 
                 if ((oofIndex('+') == -1 && oofIndex('-') == -1))
@@ -47,7 +40,7 @@ namespace StringCalculator
                 }
                 else
                 {
-                    int answer = AddSub(iNumsInEq[0], iNumsInEq[1], cOpsInEq[0]);
+                    double answer = AddSub(iNumsInEq[0], iNumsInEq[1], cOpsInEq[0]);
                     int opc = 1;
                     for (int i = 2; i < iNumsInEq.Count; i++)
                     {
@@ -79,9 +72,9 @@ namespace StringCalculator
             Console.WriteLine("*****************************");
         }
 
-        static int AddSub(int num1, int num2, char coperator)
+        static double AddSub(double num1, double num2, char coperator)
         {
-            int tmpans = 0;
+            double tmpans = 0;
             switch (coperator)
             {
                 case '+':
@@ -96,7 +89,19 @@ namespace StringCalculator
             return tmpans;
         }
 
-        static Boolean getEquation()
+        static void multiIndex(char op)
+        {
+            if (op == '*' || op == '/' || op == '%')
+            {
+                int pos;
+                if ((pos = oofIndex(op)) > -1)
+                {
+                    fixList(pos, op);
+                }
+            }
+        }
+
+        static bool getEquation()
         {
             string stmp = "";
 
@@ -139,6 +144,7 @@ namespace StringCalculator
                 if (op == cOpsInEq[i])
                 {
                     index = i;
+                    break;
                 }
 
             }
@@ -147,7 +153,7 @@ namespace StringCalculator
 
         static void fixList(int opPos, char op)
         {
-            int tmphigh = 0;
+            double tmphigh = 0;
             switch (op)
             {
                 case '*':
