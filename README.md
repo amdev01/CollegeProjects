@@ -16,7 +16,7 @@ Current state (WIP):
 
 ## TODO
 
-- [ ] Follow BODMAS
+- [x] Follow BODMAS
 - [ ] Add more mathematical operations
 	- [ ] Powers, roots, trigonometry
 	- [ ] Algebra

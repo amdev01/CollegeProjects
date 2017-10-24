@@ -9,19 +9,19 @@ namespace StringCalculator
     class Program
     {
         static string sEquation;
-        static string sOperators = "*/%+-";
-        static string sDigits = "0123456789";
+        private const string sOperators = "*/%+-";
+        private const string sDigits = "0123456789.";
         static List<double> iNumsInEq = new List<double>();
         static List<char> cOpsInEq = new List<char>();
-        static int maxLen = 10;
+        private const int maxLen = 10;
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter the equation you want to work out down below with the maximum of {0} characters in the equation (enter 'help' to display help menu)", maxLen.ToString());
+            Console.WriteLine($"Enter the equation you want to work out down below with the maximum of {maxLen} characters in the equation (enter 'help' to display help menu)");
             sEquation = Console.ReadLine();
             while (sEquation.Length > maxLen || sEquation.Length == 0)
             {
-                Console.WriteLine("Give equation is {0} characters long, the maximum is {1}, please re enter the equation", (sEquation.Length).ToString(), maxLen.ToString());
+                Console.WriteLine($"Give equation is {sEquation.Length} characters long, the maximum is {maxLen}, please re enter the equation");
                 sEquation = Console.ReadLine();
             }
 
@@ -36,7 +36,7 @@ namespace StringCalculator
                 if ((oofIndex('+') == -1 && oofIndex('-') == -1))
                 {
                     Console.Clear();
-                    Console.WriteLine("{0}={1}", sEquation, iNumsInEq[0].ToString());
+                    Console.WriteLine($"{sEquation}={iNumsInEq[0]}");
                 }
                 else
                 {
@@ -48,7 +48,7 @@ namespace StringCalculator
                         opc++;
                     }
                     Console.Clear();
-                    Console.WriteLine("{0}={1}", sEquation, answer.ToString());
+                    Console.WriteLine($"{sEquation}={answer}");
                 }
             }
 
@@ -105,7 +105,7 @@ namespace StringCalculator
         {
             string stmp = "";
 
-            char[] cEquation = sEquation.ToCharArray();
+            var cEquation = sEquation.ToCharArray();
             for (int i = 0; i < sEquation.Length; i++)
             {
                 if (sDigits.Contains(cEquation[i]))
@@ -113,7 +113,7 @@ namespace StringCalculator
                     if (i == sEquation.Length - 1)
                     {
                         stmp += (cEquation[i]).ToString();
-                        iNumsInEq.Add(Convert.ToInt16(stmp));
+                        iNumsInEq.Add(Double.Parse(stmp));
                         stmp = "";
                     }
                     else
@@ -124,12 +124,12 @@ namespace StringCalculator
                 else if (sOperators.Contains(cEquation[i]))
                 {
                     cOpsInEq.Add(cEquation[i]);
-                    iNumsInEq.Add(Convert.ToInt16(stmp));
+                    iNumsInEq.Add(Double.Parse(stmp));
                     stmp = "";
                 }
                 else
                 {
-                    Console.WriteLine("{0} is not a digit or an operator", Convert.ToString(cEquation[i]));
+                    Console.WriteLine($"{cEquation[i]} is not a digit or an operator");
                     return false;
                 }
             }
