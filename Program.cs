@@ -13,7 +13,7 @@ namespace StringCalculator
         private const string sDigits = "0123456789.";
         static List<double> iNumsInEq = new List<double>();
         static List<char> cOpsInEq = new List<char>();
-        private const int maxLen = 10;
+        private const int maxLen = 20;
 
         static void Main(string[] args)
         {
