@@ -1,39 +1,18 @@
-# StringCalculator
-My college project that takes the whole equation as a string
-and **magically** works it out rather than inputing all the numbers
-separately what most **CLI** Calculators do. Similar to the compute()
-function from DataTable class. The aim is to replace that function
-with my OSS code.
+# CollegeProjects
 
-Current state (WIP):
-* Supports simple mathematical calculations
-	* Addition
-	* Subtraction
-	* Multiplication
-	* Division
-	* Modulus
-* Somehow optimes validation
-
-## TODO
-
-- [x] Follow BODMAS
-- [ ] Add more mathematical operations
-	- [ ] Powers, roots, trigonometry
-	- [ ] Algebra
-- [ ] Handle larger equations
-- [ ] Optimise the algorithm and validation
-
-**I still hate c# to the bits and would rather do all this in C/C++**
-
-## How to run this program on Linux?
+## How to run these programs on Linux?
 
 First of all you need to instal [.NET](https://www.microsoft.com/net/core) <= Follow this link for setup instructions
 Then run the following in the terminal
 
-    ~$ git clone https://github.com/MyczkowskiAdam/StringCalculator
-    ~$ cd StringCalculator
+    ~$ git clone https://github.com/MyczkowskiAdam/CollegeProjects
+    ~$ cd CollegeProjects
+    ~$ cd *Program-you-want-to-build*
+    // If you want to run it
     ~$ dotnet run
+    // If you want to build an executable
+    ~$ dotnet build //then run the executable
 
-That's it, your calculator should be running now!
+That's it, your program should be running now!
 
 
