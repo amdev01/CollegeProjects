@@ -80,7 +80,7 @@ namespace TicTacToe
             {
                 Console.WriteLine($"Enter the position to put {who} in (free positions: {freeIndex()})");
                 string input = Console.ReadLine();
-                while (input.Length > 1 || !freeIndex().Contains(input) || input == " ")
+                while (!freeIndex().Contains(input) || input == " " || input == "")
                 {
                     Console.WriteLine($"Index {input} is not within the {freeIndex()}range");
                     input = Console.ReadLine();
