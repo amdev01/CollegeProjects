@@ -136,11 +136,11 @@ namespace TicTacToe
         /* ================== AI ================== */
         static void machinePlay()
         {
-            Console.WriteLine("Easy(1) Medium(2)");
+            Console.WriteLine("Easy(1) Medium(2) Hard(3)");
             string level = Console.ReadLine();
-            while (level != "2" && level != "1")
+            while (level != "2" && level != "1" && level != "3")
             {
-                Console.WriteLine($"Incorrect input {level} (1|2)");
+                Console.WriteLine($"Incorrect input {level} (1|2|3)");
                 level = Console.ReadLine();
             }
             switch (level)
@@ -165,29 +165,67 @@ namespace TicTacToe
                             break;
                     }
                     break;
+                case "3":
+                    while (!someoneWon)
+                    {
+                        updateBoard();
+                        if (!UserInput('X') || someoneWon)
+                            break;
+                        if (!ComputerInput('O', boardValues, level) || someoneWon)
+                            break;
+                    }
+                    break;
             }
         }
 
-        /* ========= Easy - Medium ========= */
-        /* Check all empty spaces for next move of O,
+        /* ========= Easy - Medium - Hard ========= */
+        /*
+        Easy:
+           O is being placed in random position.
+        Medium:
+           Check all empty spaces for next move of O,
            if one of them is winning, place O in there
-           otherwise place it in any free random position. */
+           otherwise place it in any free random position.
+        Hard:
+           Extension of medium, it checks if users next move
+           could be winning and places O to block them, otherwise
+           runs medium level alorithm.
+         */
+        static bool willWin(ref char[] copyBoard, int id, char who, ref int c)
+        {
+            copyBoard[id] = who;
+            if (checkWinner(who, copyBoard))
+            {
+                if (who == 'X')
+                    boardValues[id] = 'O';
+                else
+                    boardValues[id] = who;
+                c = 0;
+                return true;
+            }
+            return false;
+        }
         static bool ComputerInput(char who, char[] copyBoard, string level)
         {
             if (freeIndex(boardValues) != null)
             {
                 int c = -1;
-                if (level == "2")
+                if (level == "2" || level == "3")
                 {
                     int[] freeArray = Array.ConvertAll(freeIndex(copyBoard).Split(default(string[]), StringSplitOptions.RemoveEmptyEntries), s => int.Parse(s) - 1);
                     foreach (int id in freeArray)
                     {
-                        copyBoard[id] = who;
-                        if (checkWinner(who, copyBoard))
+                        if (level == "3")
                         {
-                            boardValues[id] = who;
-                            c = 0;
-                            break;
+                            if (willWin(ref copyBoard, id, who, ref c))
+                                break;
+                            else if (willWin(ref copyBoard, id, 'X', ref c))
+                                break;
+                        }
+                        else if (level == "2")
+                        {
+                            if (willWin(ref copyBoard, id, who, ref c))
+                                break;
                         }
                         copyBoard[id] = ' ';
                     }
@@ -196,9 +234,7 @@ namespace TicTacToe
                 {
                     int? comp;
                     if ((comp = getRandom()) != null)
-                    {
                         boardValues[comp.Value] = who;
-                    }
                 }
                 updateBoard();
                 someoneWon = checkWinner(who, boardValues);
