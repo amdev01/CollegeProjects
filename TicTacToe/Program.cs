@@ -151,7 +151,7 @@ namespace TicTacToe
                     {
                         if (!UserInput('X') || someoneWon)
                             break;
-                        if (!ComputerInputEasy('O') || someoneWon)
+                        if (!ComputerInput('O', boardValues, level) || someoneWon)
                             break;
                     }
                     break;
@@ -161,53 +161,36 @@ namespace TicTacToe
                         updateBoard();
                         if (!UserInput('X') || someoneWon)
                             break;
-                        if (!ComputerInputMedium('O', boardValues) || someoneWon)
+                        if (!ComputerInput('O', boardValues, level) || someoneWon)
                             break;
                     }
                     break;
             }
         }
 
-        /* ========= Eeasy ========= */
-        /* Places O in random position on the grid. */
-        static bool ComputerInputEasy(char who)
-        {
-            if (freeIndex(boardValues) != null)
-            {
-                int? comp;
-                if ((comp = getRandom()) != null)
-                {
-                    boardValues[comp.Value] = who;
-                }
-                updateBoard();
-                someoneWon = checkWinner(who, boardValues);
-                return true;
-            }
-            updateBoard();
-            Console.WriteLine("Draw");
-            return false;
-        }
-
-        /* ========= Eeasy ========= */
+        /* ========= Easy - Medium ========= */
         /* Check all empty spaces for next move of O,
            if one of them is winning, place O in there
            otherwise place it in any free random position. */
-        static bool ComputerInputMedium(char who, char[] copyBoard)
+        static bool ComputerInput(char who, char[] copyBoard, string level)
         {
             if (freeIndex(boardValues) != null)
             {
                 int c = -1;
-                int[] freeArray = Array.ConvertAll(freeIndex(copyBoard).Split(" ", StringSplitOptions.RemoveEmptyEntries), s => int.Parse(s) - 1);
-                foreach (int id in freeArray)
+                if (level == "2")
                 {
-                    copyBoard[id] = who;
-                    if (checkWinner(who, copyBoard))
+                    int[] freeArray = Array.ConvertAll(freeIndex(copyBoard).Split(default(string[]), StringSplitOptions.RemoveEmptyEntries), s => int.Parse(s) - 1);
+                    foreach (int id in freeArray)
                     {
-                        boardValues[id] = who;
-                        c = 0;
-                        break;
+                        copyBoard[id] = who;
+                        if (checkWinner(who, copyBoard))
+                        {
+                            boardValues[id] = who;
+                            c = 0;
+                            break;
+                        }
+                        copyBoard[id] = ' ';
                     }
-                    copyBoard[id] = ' '; // too hacky, find better way
                 }
                 if (c == -1)
                 {

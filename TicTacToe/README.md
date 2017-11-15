@@ -22,6 +22,8 @@ Current state (WIP):
 
 - [ ] Add different levels for single player mode
 	- [x] Easy (Random index)
-    - [ ] Hard (AI)
+    - [x] Medium (Check next move)
+    - [ ] Hard (Check next move and block user)
+    - [ ] Extreme (MiniMax)
 - [ ] Implement simple AI for harder level
 
