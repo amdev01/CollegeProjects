@@ -151,7 +151,7 @@ namespace TicTacToe
                     {
                         if (!UserInput('X') || someoneWon)
                             break;
-                        if (!ComputerInput('O', boardValues, level) || someoneWon)
+                        if (!ComputerInput('O', level) || someoneWon)
                             break;
                     }
                     break;
@@ -161,7 +161,7 @@ namespace TicTacToe
                         updateBoard();
                         if (!UserInput('X') || someoneWon)
                             break;
-                        if (!ComputerInput('O', boardValues, level) || someoneWon)
+                        if (!ComputerInput('O', level) || someoneWon)
                             break;
                     }
                     break;
@@ -171,7 +171,7 @@ namespace TicTacToe
                         updateBoard();
                         if (!UserInput('X') || someoneWon)
                             break;
-                        if (!ComputerInput('O', boardValues, level) || someoneWon)
+                        if (!ComputerInput('O', level) || someoneWon)
                             break;
                     }
                     break;
@@ -191,44 +191,36 @@ namespace TicTacToe
            could be winning and places O to block them, otherwise
            runs medium level alorithm.
          */
-        static bool willWin(ref char[] copyBoard, int id, char who, ref int c)
+
+        static void winningId(char[] copyBoard, char who, int id, ref int c, ref int? space)
         {
             copyBoard[id] = who;
             if (checkWinner(who, copyBoard))
             {
-                if (who == 'X')
-                    boardValues[id] = 'O';
-                else
-                    boardValues[id] = who;
+                space = id;
                 c = 0;
-                return true;
             }
-            return false;
         }
-        static bool ComputerInput(char who, char[] copyBoard, string level)
+
+        static bool ComputerInput(char who, string level)
         {
             if (freeIndex(boardValues) != null)
             {
                 int c = -1;
+                int? xwin = null, owin = null;
                 if (level == "2" || level == "3")
                 {
-                    int[] freeArray = Array.ConvertAll(freeIndex(copyBoard).Split(default(string[]), StringSplitOptions.RemoveEmptyEntries), s => int.Parse(s) - 1);
+                    int[] freeArray = Array.ConvertAll(freeIndex(boardValues).Split(default(string[]), StringSplitOptions.RemoveEmptyEntries), s => int.Parse(s) - 1);
                     foreach (int id in freeArray)
                     {
+                        winningId(boardValues.ToArray(), 'O', id, ref c, ref owin);
                         if (level == "3")
-                        {
-                            if (willWin(ref copyBoard, id, who, ref c))
-                                break;
-                            else if (willWin(ref copyBoard, id, 'X', ref c))
-                                break;
-                        }
-                        else if (level == "2")
-                        {
-                            if (willWin(ref copyBoard, id, who, ref c))
-                                break;
-                        }
-                        copyBoard[id] = ' ';
+                            winningId(boardValues.ToArray(), 'X', id, ref c, ref xwin);
                     }
+                    if (owin != null)
+                        boardValues[owin.Value] = 'O';
+                    else if (owin == null && xwin != null && level == "3")
+                        boardValues[xwin.Value] = 'O';
                 }
                 if (c == -1)
                 {
