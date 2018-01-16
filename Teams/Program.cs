@@ -15,7 +15,7 @@ namespace Teams
             bool exit = false;
             while (!exit)
             {
-                Console.WriteLine("MENU: Enter 1 to set up teams, 2 to display teams, 3 to resise group");
+                Console.WriteLine("MENU: Enter 1 to set up teams, 2 to display teams, 3 to resize group");
                 string action = Console.ReadLine();
                 while (action != "1" && action != "2" && action != "3") action = Console.ReadLine();
 
@@ -108,18 +108,12 @@ namespace Teams
             OGArray = new String[newC, 3];
             for (int i = 0; i < OGArray.GetLength(0); i++)
             {
-                if (i < tmp.GetLength(0))
-                {
-                    for (int j = 0; j < 3; j++)
-                    {
-                        OGArray[i, j] = tmp[i, j];
-                    }
-                }
+                if (i < tmp.GetLength(0)) for (int j = 0; j < 3; j++) OGArray[i, j] = tmp[i, j];
                 else
                 {
                     for (int j = 0; j < 3; j++)
                     {
-                        Console.WriteLine($"NEW ENTRY AFTER RESISE: Enter column {j + 1}, 1 - Name, 2 - Games played, 3 - Points:");
+                        Console.WriteLine($"NEW ENTRY AFTER RESIZE: Enter column {j + 1}, 1 - Name, 2 - Games played, 3 - Points:");
                         if (j != 0)
                         {
                             string console = Console.ReadLine();
