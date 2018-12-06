@@ -76,16 +76,14 @@ namespace stacks
                         break;
                     case 2:
                         Console.WriteLine("Type value to be added to the stack:");
-                        if (stackType == 1) newStack.push(getInput());
-                        else newStack.pushDynamic(getInput());
+                        newStack.push(getInput());
                         break;
                     case 3:
                         Console.WriteLine($"Top value is {newStack.peak()}");
                         break;
                     case 4:
                         Console.WriteLine("Deleting the top value...");
-                        if (stackType == 1) newStack.pop();
-                        else newStack.popDynamic();
+                        newStack.pop();
                         break;
                     case 5:
                         exit = true;

@@ -11,17 +11,21 @@ namespace stacks
         public int stackPointer;
         private T?[] stack;
         public int stackSize;
+        private bool dynamic;
+
         public AdamsStack(int size)
         {
             stackSize = size;
             stack = new T?[stackSize];
             stackPointer = -1;
+            dynamic = false;
         }
 
         public AdamsStack()
         {
             stack = new T?[0];
             stackPointer = -1;
+            dynamic = true;
         }
 
         public bool isFull()
@@ -30,46 +34,44 @@ namespace stacks
                 return true;
             else return false;
         }
+
         public bool isEmpty()
         {
             if (stackPointer < 0)
                 return true;
             else return false;
         }
+
         public void push(T data)
         {
-            if (!isFull())
+            if (!dynamic)
             {
+                if (!isFull())
+                {
+                    stackPointer++;
+                    stack[stackPointer] = data;
+                }
+                else Console.WriteLine("Stack is full");
+            }
+            else
+            {
+                Array.Resize(ref stack, stack.Length + 1);
                 stackPointer++;
                 stack[stackPointer] = data;
             }
-            else Console.WriteLine("Stack is full");
         }
-        public void pushDynamic(T data)
-        {
-            Array.Resize(ref stack, stack.Length + 1);
-            stackPointer++;
-            stack[stackPointer] = data;
-        }
+
         public void pop()
         {
             if (!isEmpty())
             {
                 stack[stackPointer] = default(T);
                 stackPointer--;
+                if (dynamic) Array.Resize(ref stack, stack.Length - 1);
             }
             else Console.WriteLine("Stack is empty");
         }
-        public void popDynamic()
-        {
-            if (!isEmpty())
-            {
-                stack[stackPointer] = default(T);
-                stackPointer--;
-                Array.Resize(ref stack, stack.Length - 1);
-            }
-            else Console.WriteLine("Stack is empty");
-        }
+
         public T? peak()
         {
             T? data = null;
@@ -79,6 +81,7 @@ namespace stacks
             }
             return data;
         }
+
         public void printStack()
         {
             if (!isEmpty())
