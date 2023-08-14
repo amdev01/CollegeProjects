@@ -8,7 +8,7 @@ namespace Calculator
     class StringCalculator
     {
 
-        static string sEquation;
+        //static string sEquation;
         private const string _sOperators = "*/%+-";
         private const string _sDigits = "0123456789.";
         private static List<double> iNumsInEq = new List<double>();
@@ -18,9 +18,9 @@ namespace Calculator
 
         public (int, string) Calc(string EquationStr)
         {
-            if (EquationStr.Length > _maxLen || EquationStr.Length < 1) return (-1, $"Give equation is {sEquation.Length} characters long, the maximum is {_maxLen}, please re enter the equation");
+            if (EquationStr.Length > _maxLen || EquationStr.Length < 1) return (-1, $"Give equation is {EquationStr.Length} characters long, the maximum is {_maxLen}, please re enter the equation");
             if (EquationStr == "help") return (1, getHelp());
-            if (getEquation())
+            if (getEquation(EquationStr))
             {
                 var copyOpsInEq = cOpsInEq.ToList();
                 foreach (char op in copyOpsInEq)
@@ -30,7 +30,7 @@ namespace Calculator
 
                 if (oofIndex('+') == -1 && oofIndex('-') == -1)
                 {
-                    return (0, $"{sEquation}={iNumsInEq[0]}");
+                    return (0, $"{EquationStr}={iNumsInEq[0]}");
                 }
                 else
                 {
@@ -41,7 +41,7 @@ namespace Calculator
                         answer = AddSub(answer, iNumsInEq[i], cOpsInEq[opc]);
                         opc++;
                     }
-                    return (0, $"{sEquation}={answer}");
+                    return (0, $"{EquationStr}={answer}");
                 }
             }
             return (-2, "ERROR: Equation could not have been calculated");
@@ -91,7 +91,7 @@ namespace Calculator
             }
         }
 
-        static bool getEquation()
+        static bool getEquation(string sEquation)
         {
             string stmp = "";
 
