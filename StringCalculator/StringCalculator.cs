@@ -18,7 +18,7 @@ namespace Calculator
 
         public (int, string) Calc(string EquationStr)
         {
-            if (EquationStr.Length > _maxLen || EquationStr.Length < 1) return (-1, $"Give equation is {EquationStr.Length} characters long, the maximum is {_maxLen}, please re enter the equation");
+            if (EquationStr == null || EquationStr.Length > _maxLen || EquationStr.Length < 1) return (-1, $"Given equation is {(EquationStr == null ? null : EquationStr.Length) } characters long, the maximum is {_maxLen}, please re enter the equation");
             if (EquationStr == "help") return (1, getHelp());
             if (getEquation(EquationStr))
             {
