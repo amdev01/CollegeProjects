@@ -24,7 +24,7 @@ namespace Calculator
         public void LargeStringShouldReturnErrorCodeMinusOne()
         {
             StringCalculator sc = new StringCalculator();
-            (int code, string message) rets = sc.Calc("1+2+3+4+5");
+            (int code, string message) rets = sc.Calc("1+2+3+4+5+6+7+8+9+10+11+12");
             Assert.Equal(-1, rets.code);
         }
 
