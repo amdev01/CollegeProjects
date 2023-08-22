@@ -11,7 +11,7 @@ public class Program
 
 
             // CALC
-
+            Console.WriteLine("" + status.message);
             Console.Read();
         }
 

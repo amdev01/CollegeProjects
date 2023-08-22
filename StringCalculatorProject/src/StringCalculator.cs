@@ -73,7 +73,7 @@ public class StringCalculator
                 tmpans = num1 - num2;
                 break;
             default:
-                break;
+                break; // should throw an exception as when this function is called there should be only add/sub in equation
         }
         return tmpans;
     }
