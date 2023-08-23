@@ -10,9 +10,10 @@ public class StringCalculator
     //static string sEquation;
     private const string _sOperators = "*/%+-";
     private const string _sDigits = "0123456789.";
-    private static List<double> iNumsInEq = new List<double>();
-    private static List<char> cOpsInEq = new List<char>();
     public const int _maxLen = 20;
+    
+    private static List<double> equationNumbersList = new List<double>();
+    private static List<char> equationOperatorsList = new List<char>();
 
 
     public (int, string) Calc(string EquationStr)
@@ -21,23 +22,23 @@ public class StringCalculator
         if (EquationStr == "help") return (1, getHelp());
         if (getEquation(EquationStr))
         {
-            var copyOpsInEq = cOpsInEq.ToList();
+            var copyOpsInEq = equationOperatorsList.ToList();
             foreach (char op in copyOpsInEq)
             {
                 multiIndex(op);
             }
 
-            if (oofIndex('+') == -1 && oofIndex('-') == -1)
+            if (indexOfOperator('+') == -1 && indexOfOperator('-') == -1)
             {
-                return (0, $"{EquationStr}={iNumsInEq[0]}");
+                return (0, $"{EquationStr}={equationNumbersList[0]}");
             }
             else
             {
-                double answer = AddSub(iNumsInEq[0], iNumsInEq[1], cOpsInEq[0]);
+                double answer = AddSub(equationNumbersList[0], equationNumbersList[1], equationOperatorsList[0]);
                 int opc = 1;
-                for (int i = 2; i < iNumsInEq.Count; i++)
+                for (int i = 2; i < equationNumbersList.Count; i++)
                 {
-                    answer = AddSub(answer, iNumsInEq[i], cOpsInEq[opc]);
+                    answer = AddSub(answer, equationNumbersList[i], equationOperatorsList[opc]);
                     opc++;
                 }
                 return (0, $"{EquationStr}={answer}");
@@ -79,7 +80,7 @@ public class StringCalculator
         if (op == '*' || op == '/' || op == '%')
         {
             int pos;
-            if ((pos = oofIndex(op)) > -1)
+            if ((pos = indexOfOperator(op)) > -1)
             {
                 fixList(pos, op);
             }
@@ -98,7 +99,7 @@ public class StringCalculator
                 if (i == sEquation.Length - 1)
                 {
                     stmp += cEquation[i].ToString();
-                    iNumsInEq.Add(Double.Parse(stmp));
+                    equationNumbersList.Add(Double.Parse(stmp));
                     stmp = "";
                 }
                 else
@@ -108,8 +109,8 @@ public class StringCalculator
             }
             else if (_sOperators.Contains(cEquation[i].ToString()))
             {
-                cOpsInEq.Add(cEquation[i]);
-                iNumsInEq.Add(Double.Parse(stmp));
+                equationOperatorsList.Add(cEquation[i]);
+                equationNumbersList.Add(Double.Parse(stmp));
                 stmp = "";
             }
             else
@@ -122,12 +123,12 @@ public class StringCalculator
     }
 
 
-    static int oofIndex(char op)
+    static int indexOfOperator(char op)
     {
         int index = -1;
-        for (int i = 0; i < cOpsInEq.Count; i++)
+        for (int i = 0; i < equationOperatorsList.Count; i++)
         {
-            if (op == cOpsInEq[i])
+            if (op == equationOperatorsList[i])
             {
                 index = i;
                 break;
@@ -143,20 +144,20 @@ public class StringCalculator
         switch (op)
         {
             case '*':
-                tmphigh = iNumsInEq[opPos] * iNumsInEq[opPos + 1];
+                tmphigh = equationNumbersList[opPos] * equationNumbersList[opPos + 1];
                 break;
             case '/':
-                tmphigh = iNumsInEq[opPos] / iNumsInEq[opPos + 1];
+                tmphigh = equationNumbersList[opPos] / equationNumbersList[opPos + 1];
                 break;
             case '%':
-                tmphigh = iNumsInEq[opPos] % iNumsInEq[opPos + 1];
+                tmphigh = equationNumbersList[opPos] % equationNumbersList[opPos + 1];
                 break;
             default:
                 break;
 
         }
-        iNumsInEq[opPos] = tmphigh;
-        iNumsInEq.RemoveAt(opPos + 1);
-        cOpsInEq.RemoveAt(opPos);
+        equationNumbersList[opPos] = tmphigh;
+        equationNumbersList.RemoveAt(opPos + 1);
+        equationOperatorsList.RemoveAt(opPos);
     }
 }
