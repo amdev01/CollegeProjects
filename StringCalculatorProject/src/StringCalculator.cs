@@ -1,7 +1,4 @@
-using System.Collections.Generic;
-using System;
-using System.Linq;
-
+using System.Text;
 namespace StringCalculatorProject;
 
 public class StringCalculator
@@ -11,7 +8,7 @@ public class StringCalculator
     private const string _sOperators = "*/%+-";
     private const string _sDigits = "0123456789.";
     public const int _maxLen = 20;
-    
+
     private static List<double> equationNumbersList = new List<double>();
     private static List<char> equationOperatorsList = new List<char>();
 
@@ -25,14 +22,14 @@ public class StringCalculator
             var copyOpsInEq = equationOperatorsList.ToList();
             foreach (char op in copyOpsInEq)
             {
-                multiIndex(op);
+                if (op == '*' || op == '/' || op == '%')
+                {
+                    int index = indexOfOperator(op);
+                    if (index > -1) peformHighRankCalc(index, op);
+                }
             }
 
-            if (indexOfOperator('+') == -1 && indexOfOperator('-') == -1)
-            {
-                return (0, $"{EquationStr}={equationNumbersList[0]}");
-            }
-            else
+            if (indexOfOperator('+') != -1 && indexOfOperator('-') != -1) //return (0, $"{EquationStr}={equationNumbersList[0]}");
             {
                 double answer = AddSub(equationNumbersList[0], equationNumbersList[1], equationOperatorsList[0]);
                 int opc = 1;
@@ -64,100 +61,53 @@ public class StringCalculator
 
     static double AddSub(double num1, double num2, char op)
     {
-        switch (op)
-        {
-            case '+':
-                return num1 + num2;
-            case '-':
-                return num1 - num2;
-            default:
-                throw new ArgumentException("Supported operators are '+' and '-' "); // should throw an exception as when this function is called there should be only add/sub in equation
-        }
-    }
-
-    static void multiIndex(char op)
-    {
-        if (op == '*' || op == '/' || op == '%')
-        {
-            int pos;
-            if ((pos = indexOfOperator(op)) > -1)
-            {
-                fixList(pos, op);
-            }
-        }
+        if (op == '+') return num1 + num2;
+        if (op == '-') return num1 - num2;
+        throw new ArgumentException("Supported operators are '+' and '-' "); // should throw an exception as when this function is called there should be only add/sub in equation
     }
 
     static bool getEquation(string sEquation)
     {
-        string stmp = "";
-
-        var cEquation = sEquation.ToCharArray();
+        StringBuilder builder = new StringBuilder();
         for (int i = 0; i < sEquation.Length; i++)
         {
-            if (_sDigits.Contains(cEquation[i].ToString()))
+            if (_sDigits.Contains(sEquation[i]))
             {
-                if (i == sEquation.Length - 1)
-                {
-                    stmp += cEquation[i].ToString();
-                    equationNumbersList.Add(Double.Parse(stmp));
-                    stmp = "";
-                }
-                else
-                {
-                    stmp += (cEquation[i]).ToString();
-                }
+                if (i == sEquation.Length - 1) equationNumbersList.Add(Double.Parse(builder.Append(sEquation[i]).ToString())); //builder.Clear();
+                else builder.Append(sEquation[i]);
             }
-            else if (_sOperators.Contains(cEquation[i].ToString()))
+            else if (_sOperators.Contains(sEquation[i]))
             {
-                equationOperatorsList.Add(cEquation[i]);
-                equationNumbersList.Add(Double.Parse(stmp));
-                stmp = "";
+                equationOperatorsList.Add(sEquation[i]);
+                equationNumbersList.Add(Double.Parse(builder.ToString()));
+                builder.Clear();
             }
-            else
-            {
-                Console.WriteLine($"{cEquation[i]} is not a digit or an operator");
-                return false;
-            }
+            else { Console.WriteLine($"{sEquation[i]} is not a digit or an operator"); return false; }
         }
         return true;
     }
 
-
     static int indexOfOperator(char op)
     {
-        int index = -1;
         for (int i = 0; i < equationOperatorsList.Count; i++)
         {
-            if (op == equationOperatorsList[i])
-            {
-                index = i;
-                break;
-            }
-
+            if (op == equationOperatorsList[i]) return i;
         }
-        return index;
+        return -1;
     }
 
-    static void fixList(int opPos, char op)
+    static void peformHighRankCalc(int opIndex, char op)
     {
-        double tmphigh = 0;
-        switch (op)
-        {
-            case '*':
-                tmphigh = equationNumbersList[opPos] * equationNumbersList[opPos + 1];
-                break;
-            case '/':
-                tmphigh = equationNumbersList[opPos] / equationNumbersList[opPos + 1];
-                break;
-            case '%':
-                tmphigh = equationNumbersList[opPos] % equationNumbersList[opPos + 1];
-                break;
-            default:
-                break;
+        if (op == '*') removeHighRankCalcFromEquation(opIndex, equationNumbersList[opIndex] * equationNumbersList[opIndex + 1]);
+        else if (op == '/') removeHighRankCalcFromEquation(opIndex, equationNumbersList[opIndex] / equationNumbersList[opIndex + 1]);
+        else if (op == '%') removeHighRankCalcFromEquation(opIndex, equationNumbersList[opIndex] % equationNumbersList[opIndex + 1]);
+        else throw new ArgumentException("Supported operators are '*', '/', '%' ");
+    }
 
-        }
-        equationNumbersList[opPos] = tmphigh;
-        equationNumbersList.RemoveAt(opPos + 1);
-        equationOperatorsList.RemoveAt(opPos);
+    static void removeHighRankCalcFromEquation(int opIndex, double result)
+    {
+        equationNumbersList[opIndex] = result;
+        equationNumbersList.RemoveAt(opIndex + 1);
+        equationOperatorsList.RemoveAt(opIndex);
     }
 }
