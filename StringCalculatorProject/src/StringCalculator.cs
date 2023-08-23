@@ -61,21 +61,17 @@ public class StringCalculator
         "** functions can be combined *\n" +
         "******************************\n";
 
-    static double AddSub(double num1, double num2, char coperator)
+    static double AddSub(double num1, double num2, char op)
     {
-        double tmpans = 0;
-        switch (coperator)
+        switch (op)
         {
             case '+':
-                tmpans = num1 + num2;
-                break;
+                return num1 + num2;
             case '-':
-                tmpans = num1 - num2;
-                break;
+                return num1 - num2;
             default:
-                break; // should throw an exception as when this function is called there should be only add/sub in equation
+                throw new ArgumentException("Supported operators are '+' and '-' "); // should throw an exception as when this function is called there should be only add/sub in equation
         }
-        return tmpans;
     }
 
     static void multiIndex(char op)
