@@ -1,4 +1,4 @@
-SF:c:\Users\AdamMyczkowski\OneDrive - QTM Global Services Ltd\Documents\GitHub\CollegeProjects\StringCalculatorProject\src\Program.cs
+SF:c:\Users\AdamMyczkowski\OneDrive - QTM Global Services Ltd\Documents\GitHub\wip\CollegeProjects\StringCalculatorProject\src\Program.cs
 FN:5,System.Void StringCalculatorProject.Program::Main(System.String[])
 FNDA:0,System.Void StringCalculatorProject.Program::Main(System.String[])
 DA:6,0
@@ -20,168 +20,168 @@ BRH:0
 FNF:1
 FNH:0
 end_of_record
-SF:c:\Users\AdamMyczkowski\OneDrive - QTM Global Services Ltd\Documents\GitHub\CollegeProjects\StringCalculatorProject\src\StringCalculator.cs
+SF:c:\Users\AdamMyczkowski\OneDrive - QTM Global Services Ltd\Documents\GitHub\wip\CollegeProjects\StringCalculatorProject\src\StringCalculator.cs
 FN:16,System.ValueTuple`2<System.Int32,System.String> StringCalculatorProject.StringCalculator::Calc(System.String)
-FNDA:9,System.ValueTuple`2<System.Int32,System.String> StringCalculatorProject.StringCalculator::Calc(System.String)
-DA:17,9
-DA:18,12
-DA:19,7
-DA:20,5
-DA:21,1
-DA:22,1
-DA:23,9
-DA:24,3
-DA:25,3
-DA:26,1
-DA:27,1
-DA:28,2
-DA:29,1
-DA:30,3
-DA:32,1
-DA:34,1
-DA:35,1
-DA:36,7
-DA:37,2
-DA:38,2
-DA:39,2
-DA:40,2
-DA:41,4
-DA:42,2
-DA:43,2
-DA:44,1
-DA:47,4
-DA:48,9
-BRDA:18,2,0,8
-BRDA:18,12,0,7
-BRDA:18,2,1,2
-BRDA:18,12,1,2
-BRDA:18,28,0,3
-BRDA:18,57,0,2
-BRDA:18,57,1,1
-BRDA:18,28,1,6
-BRDA:19,148,0,1
-BRDA:19,148,1,5
-BRDA:20,178,0,1
-BRDA:23,285,1,3
-BRDA:25,222,0,2
-BRDA:25,228,0,2
-BRDA:25,222,1,1
-BRDA:25,228,1,1
-BRDA:25,243,0,1
-BRDA:28,264,0,1
-BRDA:28,264,1,1
-BRDA:25,243,1,3
-BRDA:23,285,0,1
+FNDA:0,System.ValueTuple`2<System.Int32,System.String> StringCalculatorProject.StringCalculator::Calc(System.String)
+DA:17,0
+DA:18,0
+DA:19,0
+DA:20,0
+DA:21,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:25,0
+DA:26,0
+DA:27,0
+DA:28,0
+DA:29,0
+DA:30,0
+DA:32,0
+DA:34,0
+DA:35,0
+DA:36,0
+DA:37,0
+DA:38,0
+DA:39,0
+DA:40,0
+DA:41,0
+DA:42,0
+DA:43,0
+DA:44,0
+DA:47,0
+DA:48,0
+BRDA:18,2,0,0
+BRDA:18,12,0,0
+BRDA:18,2,1,0
+BRDA:18,12,1,0
+BRDA:18,28,0,0
+BRDA:18,57,0,0
+BRDA:18,57,1,0
+BRDA:18,28,1,0
+BRDA:19,148,0,0
+BRDA:19,148,1,0
+BRDA:20,178,0,0
+BRDA:23,285,1,0
+BRDA:25,222,0,0
+BRDA:25,228,0,0
+BRDA:25,222,1,0
+BRDA:25,228,1,0
+BRDA:25,243,0,0
+BRDA:28,264,0,0
+BRDA:28,264,1,0
+BRDA:25,243,1,0
+BRDA:23,285,0,0
 BRDA:32,312,0,0
-BRDA:32,312,1,1
+BRDA:32,312,1,0
 BRDA:32,331,0,0
-BRDA:32,331,1,1
-BRDA:36,498,1,2
-BRDA:38,441,0,1
-BRDA:38,441,1,1
-BRDA:38,456,0,2
-BRDA:41,477,0,2
-BRDA:41,477,1,2
-BRDA:38,456,1,2
-BRDA:36,498,0,1
-BRDA:20,178,1,4
+BRDA:32,331,1,0
+BRDA:36,498,1,0
+BRDA:38,441,0,0
+BRDA:38,441,1,0
+BRDA:38,456,0,0
+BRDA:41,477,0,0
+BRDA:41,477,1,0
+BRDA:38,456,1,0
+BRDA:36,498,0,0
+BRDA:20,178,1,0
 FN:50,System.String StringCalculatorProject.StringCalculator::getHelp()
-FNDA:1,System.String StringCalculatorProject.StringCalculator::getHelp()
-DA:51,1
-DA:52,1
-DA:53,1
-DA:54,1
-DA:55,1
-DA:56,1
-DA:57,1
-DA:58,1
-DA:59,1
-DA:60,1
-DA:61,1
-DA:62,1
-DA:63,1
+FNDA:0,System.String StringCalculatorProject.StringCalculator::getHelp()
+DA:51,0
+DA:52,0
+DA:53,0
+DA:54,0
+DA:55,0
+DA:56,0
+DA:57,0
+DA:58,0
+DA:59,0
+DA:60,0
+DA:61,0
+DA:62,0
+DA:63,0
 FN:65,System.Void StringCalculatorProject.StringCalculator::AddSub(System.Int32,System.Char)
-FNDA:2,System.Void StringCalculatorProject.StringCalculator::AddSub(System.Int32,System.Char)
-DA:66,2
-DA:67,3
-DA:68,2
+FNDA:0,System.Void StringCalculatorProject.StringCalculator::AddSub(System.Int32,System.Char)
+DA:66,0
+DA:67,0
+DA:68,0
 DA:69,0
-DA:70,2
-BRDA:67,8,0,1
-BRDA:67,8,1,1
-BRDA:68,51,0,1
+DA:70,0
+BRDA:67,8,0,0
+BRDA:67,8,1,0
+BRDA:68,51,0,0
 BRDA:68,51,1,0
 FN:72,System.Boolean StringCalculatorProject.StringCalculator::getEquation(System.String)
-FNDA:5,System.Boolean StringCalculatorProject.StringCalculator::getEquation(System.String)
-DA:73,5
-DA:74,5
-DA:75,38
-DA:76,18
-DA:77,18
-DA:78,8
-DA:79,9
-DA:80,7
-DA:81,8
-DA:82,10
-DA:83,6
-DA:84,6
-DA:85,6
-DA:86,6
-DA:87,6
-DA:88,12
-DA:89,14
-DA:90,1
-DA:91,5
-BRDA:75,257,1,18
-BRDA:77,34,0,8
-BRDA:79,50,0,1
-BRDA:79,50,1,7
-BRDA:77,34,1,10
-BRDA:82,129,0,6
-BRDA:82,129,1,4
-BRDA:75,257,0,1
+FNDA:0,System.Boolean StringCalculatorProject.StringCalculator::getEquation(System.String)
+DA:73,0
+DA:74,0
+DA:75,0
+DA:76,0
+DA:77,0
+DA:78,0
+DA:79,0
+DA:80,0
+DA:81,0
+DA:82,0
+DA:83,0
+DA:84,0
+DA:85,0
+DA:86,0
+DA:87,0
+DA:88,0
+DA:89,0
+DA:90,0
+DA:91,0
+BRDA:75,257,1,0
+BRDA:77,34,0,0
+BRDA:79,50,0,0
+BRDA:79,50,1,0
+BRDA:77,34,1,0
+BRDA:82,129,0,0
+BRDA:82,129,1,0
+BRDA:75,257,0,0
 FN:93,System.Int32 StringCalculatorProject.StringCalculator::indexOfOperator(System.Char)
-FNDA:4,System.Int32 StringCalculatorProject.StringCalculator::indexOfOperator(System.Char)
-DA:94,4
-DA:95,12
-DA:96,6
-DA:97,10
-DA:98,2
+FNDA:0,System.Int32 StringCalculatorProject.StringCalculator::indexOfOperator(System.Char)
+DA:94,0
+DA:95,0
+DA:96,0
+DA:97,0
+DA:98,0
 DA:99,0
-DA:100,4
-BRDA:95,48,1,6
-BRDA:97,22,0,4
-BRDA:97,22,1,2
+DA:100,0
+BRDA:95,48,1,0
+BRDA:97,22,0,0
+BRDA:97,22,1,0
 BRDA:95,48,0,0
 FN:102,System.Void StringCalculatorProject.StringCalculator::peformHighRankCalc(System.Int32,System.Char)
-FNDA:1,System.Void StringCalculatorProject.StringCalculator::peformHighRankCalc(System.Int32,System.Char)
-DA:103,1
-DA:104,2
+FNDA:0,System.Void StringCalculatorProject.StringCalculator::peformHighRankCalc(System.Int32,System.Char)
+DA:103,0
+DA:104,0
 DA:105,0
 DA:106,0
 DA:107,0
-DA:108,1
-BRDA:104,8,0,1
+DA:108,0
+BRDA:104,8,0,0
 BRDA:104,8,1,0
 BRDA:105,51,0,0
 BRDA:105,51,1,0
 BRDA:106,94,0,0
 BRDA:106,94,1,0
 FN:110,System.Void StringCalculatorProject.StringCalculator::removeHighRankCalcFromEquation(System.Int32,System.Double)
-FNDA:3,System.Void StringCalculatorProject.StringCalculator::removeHighRankCalcFromEquation(System.Int32,System.Double)
-DA:111,3
-DA:112,3
-DA:113,3
-DA:114,3
-DA:115,3
+FNDA:0,System.Void StringCalculatorProject.StringCalculator::removeHighRankCalcFromEquation(System.Int32,System.Double)
+DA:111,0
+DA:112,0
+DA:113,0
+DA:114,0
+DA:115,0
 FN:11,System.Void StringCalculatorProject.StringCalculator::.cctor()
-FNDA:1,System.Void StringCalculatorProject.StringCalculator::.cctor()
-DA:12,1
-DA:13,1
+FNDA:0,System.Void StringCalculatorProject.StringCalculator::.cctor()
+DA:12,0
+DA:13,0
 LF:85
-LH:80
+LH:0
 BRF:56
-BRH:47
+BRH:0
 FNF:8
-FNH:8
+FNH:0
 end_of_record

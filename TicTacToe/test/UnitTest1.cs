@@ -1,5 +1,3 @@
-global using Xunit;
-
 namespace TicTacToe.Tests;
 
 public class UnitTest1
