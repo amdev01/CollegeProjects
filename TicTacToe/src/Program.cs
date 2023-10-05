@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TicTacToe
+﻿namespace TicTacToe
 {
     /*
      *  Grid design:
@@ -18,7 +12,7 @@ namespace TicTacToe
      */
     class Program
     {
-        static char[] boardValues = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
+        static char[] boardValues = { ' ', '\r', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
         static bool someoneWon = false;
         static void Main(string[] args)
         {

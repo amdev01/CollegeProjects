@@ -29,16 +29,19 @@ public class StringCalculator
                 }
             }
 
-            if (indexOfOperator('+') != -1 && indexOfOperator('-') != -1) //return (0, $"{EquationStr}={equationNumbersList[0]}");
+            if (indexOfOperator('+') == -1 && indexOfOperator('-') == -1) return (0, $"{EquationStr}={equationNumbersList[0]}");
+            else
             {
-                double answer = AddSub(equationNumbersList[0], equationNumbersList[1], equationOperatorsList[0]);
-                int opc = 1;
-                for (int i = 2; i < equationNumbersList.Count; i++)
+                var copyOpsInEq2 = equationOperatorsList.ToList();
+                foreach (char op in copyOpsInEq2)
                 {
-                    answer = AddSub(answer, equationNumbersList[i], equationOperatorsList[opc]);
-                    opc++;
+                  if (op == '+' || op == '-')
+                  {
+                    int index = indexOfOperator(op);
+                    if (index > -1) AddSub(index, op);
+                  }
                 }
-                return (0, $"{EquationStr}={answer}");
+                return (0, $"{EquationStr}={equationNumbersList[0]}");
             }
         }
         return (-2, "ERROR: Equation could not have been calculated");
@@ -59,11 +62,11 @@ public class StringCalculator
         "** functions can be combined *\n" +
         "******************************\n";
 
-    static double AddSub(double num1, double num2, char op)
+    static void AddSub(int opIndex, char op)
     {
-        if (op == '+') return num1 + num2;
-        if (op == '-') return num1 - num2;
-        throw new ArgumentException("Supported operators are '+' and '-' "); // should throw an exception as when this function is called there should be only add/sub in equation
+        if (op == '+') removeHighRankCalcFromEquation(opIndex, equationNumbersList[opIndex] + equationNumbersList[opIndex + 1]); //return num1 + num2;
+        else if (op == '-') removeHighRankCalcFromEquation(opIndex, equationNumbersList[opIndex] - equationNumbersList[opIndex + 1]); //return num1 - num2;
+        else throw new ArgumentException("Supported operators are '+' and '-' "); // should throw an exception as when this function is called there should be only add/sub in equation
     }
 
     static bool getEquation(string sEquation)
